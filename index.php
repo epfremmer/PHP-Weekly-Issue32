@@ -12,10 +12,10 @@ use PHPWeekly\Service\WrappingPaperService;
 
 require_once 'vendor/autoload.php';
 
-$boxes = explode(PHP_EOL, file_get_contents('./data/boxes.txt'));
+$boxes = file('./data/boxes.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 $boxFactory = new BoxFactory();
-$boxCollection = new Collection(array_filter($boxes));
+$boxCollection = new Collection($boxes);
 $wrappingService = new WrappingPaperService();
 
 $boxCollection = $boxCollection->map(function($dimensions) use ($boxFactory) {
